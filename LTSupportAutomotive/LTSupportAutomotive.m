@@ -139,3 +139,15 @@ NSMutableArray<LTOBD2PID*>* allMode1Values()
              //64-C0
              ].mutableCopy;
 }
+
+NSMutableArray<LTOBD2PID*>* allMode9Values()
+{
+    return @[
+             [LTOBD2PID_VIN_CODE_0902 pid],
+             [LTOBD2PID_CALIBRATION_ID_0904 pid],
+             [LTOBD2PID_CALIBRATION_VERIFICATION_0906 pid],
+             [LTOBD2PID_SPARK_IGNITION_PERFORMANCE_TRACKING_0908 pid],
+             [LTOBD2PID_ECU_NAME_090A pid],
+             [LTOBD2PID_COMPRESSION_IGNITION_PERFORMANCE_TRACKING_090B pid]
+             ].mutableCopy;
+}
