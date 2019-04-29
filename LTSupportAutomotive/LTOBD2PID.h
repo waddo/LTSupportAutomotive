@@ -25,6 +25,8 @@ typedef enum : NSUInteger {
 +(instancetype)pidForMode1; // mode 1
 +(instancetype)pidForFreezeFrameDTC:(LTOBD2DTC*)freezeFrameDTC; // mode 2, freeze frame w/ ECU selection
 +(instancetype)pid; // mode 3-n
++(NSMutableArray*)allMode1Values;
++(NSMutableArray*)allMode9Values;
 
 @property(assign,nonatomic,readonly) NSInteger freezeFrame; // NSNotFound, if not applicable
 @property(strong,nonatomic,readonly) NSString* selectedECU; // nil, if not applicable
