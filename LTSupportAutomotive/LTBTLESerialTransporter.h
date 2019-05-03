@@ -16,7 +16,7 @@ typedef void(^LTBTLESerialTransporterConnectionBlock)(NSInputStream* _Nullable i
 
 @property(strong,nonatomic,readonly) NSNumber* signalStrength;
 
-+(instancetype)transporterWithIdentifier:(nullable NSUUID*)identifier serviceUUIDs:(NSArray<CBUUID*>*)serviceUUIDs;
++(instancetype)transporterWithIdentifier:(nullable NSUUID*)identifier serviceUUIDs:(NSArray<CBUUID*>*)serviceUUIDs peripheral:(CBPeripheral*)peripheral;
 -(void)connectWithBlock:(LTBTLESerialTransporterConnectionBlock)block;
 -(void)disconnect;
 

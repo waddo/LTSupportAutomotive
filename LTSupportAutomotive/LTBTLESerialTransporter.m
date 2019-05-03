@@ -27,6 +27,7 @@ NSString* const LTBTLESerialTransporterDidUpdateSignalStrength = @"LTBTLESerialT
     CBPeripheral* _adapter;
     CBCharacteristic* _reader;
     CBCharacteristic* _writer;
+    CBPeripheral* _peripheral;
     
     NSMutableArray<CBPeripheral*>* _possibleAdapters;
     
@@ -43,13 +44,11 @@ NSString* const LTBTLESerialTransporterDidUpdateSignalStrength = @"LTBTLESerialT
 #pragma mark -
 #pragma mark Lifecycle
 
-+(instancetype)transporterWithIdentifier:(NSUUID*)identifier serviceUUIDs:(NSArray<CBUUID*>*)serviceUUIDs
-{
-    return [[self alloc] initWithIdentifier:identifier serviceUUIDs:serviceUUIDs];
++(instancetype)transporterWithIdentifier:(nullable NSUUID*)identifier serviceUUIDs:(NSArray<CBUUID*>*)serviceUUIDs peripheral:(CBPeripheral*)peripheral {
+    return [[self alloc] initWithIdentifier:identifier serviceUUIDs:serviceUUIDs peripheral:peripheral];
 }
 
--(instancetype)initWithIdentifier:(NSUUID*)identifier serviceUUIDs:(NSArray<CBUUID*>*)serviceUUIDs
-{
+-(instancetype)initWithIdentifier:(nullable NSUUID*)identifier serviceUUIDs:(NSArray<CBUUID*>*)serviceUUIDs peripheral:(CBPeripheral*)peripheral {
     if ( ! ( self = [super init] ) )
     {
         return nil;
@@ -57,6 +56,7 @@ NSString* const LTBTLESerialTransporterDidUpdateSignalStrength = @"LTBTLESerialT
     
     _identifier = identifier;
     _serviceUUIDs = serviceUUIDs;
+    _peripheral = peripheral;
     
     _dispatchQueue = dispatch_queue_create( [NSStringFromClass(self.class) UTF8String], DISPATCH_QUEUE_SERIAL );
     _possibleAdapters = [NSMutableArray array];
@@ -165,7 +165,7 @@ NSString* const LTBTLESerialTransporterDidUpdateSignalStrength = @"LTBTLESerialT
     _adapter = peripherals.firstObject;
     _adapter.delegate = self;
     LOG( @"DISCOVER (cached) %@", _adapter );
-    [_manager connectPeripheral:_adapter options:nil];
+    [_manager connectPeripheral:_peripheral options:nil];
 }
 
 -(void)centralManager:(CBCentralManager *)central didDiscoverPeripheral:(CBPeripheral*)peripheral advertisementData:(NSDictionary<NSString *,id> *)advertisementData RSSI:(NSNumber *)RSSI
